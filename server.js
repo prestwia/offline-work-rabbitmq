@@ -57,8 +57,9 @@ app.post("/images", upload.single("image"), async function (req, res, next) {
             next(err)
         }
     } else {
+        await fs.unlink(req.file.path)
         res.status(400).send({
-            err: "Invalid file"
+            err: "Invalid file or missing userId"
         })
     }
 })
